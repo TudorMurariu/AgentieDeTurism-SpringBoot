@@ -6,3 +6,5 @@ pluginManagement {
 	}
 }
 rootProject.name = 'AgentieDeTurism-SpringBoot'
+include 'Model'
+
