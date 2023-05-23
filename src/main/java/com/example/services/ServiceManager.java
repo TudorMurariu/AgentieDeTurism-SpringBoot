@@ -52,21 +52,6 @@ public class ServiceManager implements Service {
     }
 
     @Override
-    public Iterable<Excursie> getExcursii(String numeObiectiv) {
-        return excursieRepo.findFiltered(numeObiectiv);
-    }
-
-    @Override
-    public Iterable<Excursie> getExcursii(String startTime, String endTime) {
-        return excursieRepo.findFiltered(startTime, endTime);
-    }
-
-    @Override
-    public Iterable<Excursie> getExcursii(String numeObiectiv, String startTime, String endTime) {
-        return excursieRepo.findFiltered(numeObiectiv, startTime, endTime);
-    }
-
-    @Override
     public boolean rezervare(String numeClient, String numarDeTelefon,Excursie excursie, int numarBilete) {
         if(numarBilete > excursie.getNumarLocuriDisponibile())
             return false;
@@ -82,12 +67,4 @@ public class ServiceManager implements Service {
         return true;
     }
 
-    @Override
-    public Excursie getExcursie(String numeObiectiv, String numeCompanie, String oraPlecarii, float pret, int numarLocuriDisponibile) {
-        for(Excursie e : excursieRepo.findFiltered(numeObiectiv)) {
-            if(e.getNumeCompanieTurism().equals(numeCompanie) && e.getOraPlecarii().equals(oraPlecarii) && e.getPret() == pret && e.getNumarLocuriDisponibile() == numarLocuriDisponibile)
-                return e;
-        }
-        return null;
-    }
 }

@@ -9,13 +9,6 @@ public interface Service {
     void logout(User user);
     Iterable<Excursie> getExcursii();
 
-    Iterable<Excursie> getExcursii(String numeObiectiv);
-
-    Iterable<Excursie> getExcursii(String startTime, String endTime);
-
-    Iterable<Excursie> getExcursii(String numeObiectiv, String startTime, String endTime);
-
     boolean rezervare(String numeClient, String numarDeTelefon, Excursie excursie, int numarBilete);
 
-    Excursie getExcursie(String numeObiectiv, String numeCompanie, String oraPlecarii, float pret, int numarLocuriDisponibile);
 }

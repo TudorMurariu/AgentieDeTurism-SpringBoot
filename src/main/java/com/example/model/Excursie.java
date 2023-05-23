@@ -9,6 +9,19 @@ public class Excursie extends Entity<UUID> {
     private float pret;
     private int numarLocuriDisponibile;
 
+    public Excursie() {
+
+    }
+
+    public Excursie(UUID id, String obirctivTuristic, String numeCompanieTurism, String oraPlecarii, float pret, int numarLocuriDisponibile) {
+        this.obirctivTuristic = obirctivTuristic;
+        this.numeCompanieTurism = numeCompanieTurism;
+        this.oraPlecarii = oraPlecarii;
+        this.pret = pret;
+        this.numarLocuriDisponibile = numarLocuriDisponibile;
+        this.setId(id);
+    }
+
     public Excursie(String obirctivTuristic, String numeCompanieTurism, String oraPlecarii, float pret, int numarLocuriDisponibile) {
         this.obirctivTuristic = obirctivTuristic;
         this.numeCompanieTurism = numeCompanieTurism;

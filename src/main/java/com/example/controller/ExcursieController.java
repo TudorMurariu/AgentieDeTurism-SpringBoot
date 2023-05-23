@@ -40,19 +40,32 @@ public class ExcursieController {
         return excursie;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Excursie update(@RequestBody Excursie excursie) {
         excursieRepo.update(excursie.getId(), excursie);
         return excursie;
     }
 
-    @RequestMapping(value = "/{obirctivTuristic}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@RequestBody String obirctivTuristic) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        System.out.println(id + " ________________");
         try {
-            excursieRepo.delete(obirctivTuristic);
+            excursieRepo.delete(UUID.fromString(id));
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<String>("The entity has been deleted", HttpStatus.OK);;
+        return new ResponseEntity<String>("The entity has been deleted", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter",method = RequestMethod.GET)
+    public Iterable<Excursie> getByName(@RequestBody Excursie excursie)
+    {
+        return excursieRepo.findFiltered(excursie);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String excursieError(Exception e) {
+        return e.getMessage();
     }
 }
