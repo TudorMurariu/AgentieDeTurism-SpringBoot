@@ -47,9 +47,9 @@ public class ExcursieClient {
         });
     }
 
-    public Excursie[] filter(Excursie excursie) {
+    public Excursie[] filter(String obiectiv, String ora) {
         return execute(() ->
-            restTemplate.getForObject(URI + "/filter", Excursie[].class, excursie)
+            restTemplate.getForObject(URI + "/filter?obiectiv=" + obiectiv + "&ora=" + ora, Excursie[].class)
         );
     }
 }

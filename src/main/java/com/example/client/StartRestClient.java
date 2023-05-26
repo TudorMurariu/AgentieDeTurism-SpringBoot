@@ -26,7 +26,7 @@ public class StartRestClient {
             });
 
             show(() -> {
-                Excursie[] excursii = excursieClient.filter(e2);
+                Excursie[] excursii = excursieClient.filter(e2.getObirctivTuristic(), e2.getOraPlecarii());
 
                 for(Excursie e : excursii)
                     System.out.println(e + "-----------------");

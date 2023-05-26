@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -58,9 +59,11 @@ public class ExcursieController {
     }
 
     @RequestMapping(value = "/filter",method = RequestMethod.GET)
-    public Iterable<Excursie> getByName(@RequestBody Excursie excursie)
+    public Iterable<Excursie> getByName(@RequestParam Optional<String> obiectiv, @RequestParam Optional<String> ora)
     {
-        return excursieRepo.findFiltered(excursie);
+        if(obiectiv.isEmpty() || ora.isEmpty())
+            return excursieRepo.findAll();
+        return excursieRepo.findFiltered(obiectiv.get(), ora.get());
     }
 
     @ExceptionHandler(Exception.class)
