@@ -1,9 +1,8 @@
 package com.example.controller;
 
 import com.example.model.Excursie;
-import com.example.repository.ExcursieRepo;
+import com.example.services.ExcursieServiceImp;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +14,18 @@ import java.util.UUID;
 @RequestMapping("/excursie")
 @RequiredArgsConstructor
 public class ExcursieController {
-
-    @Autowired
-    private ExcursieRepo excursieRepo;
+    private final ExcursieServiceImp excursieService;
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Excursie> getAll()
     {
-        return excursieRepo.findAll();
+        return excursieService.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable UUID id)
     {
-        Excursie e = excursieRepo.findOne(id);
+        Excursie e = excursieService.getById(id);
         if(e == null)
             return new ResponseEntity<String>("There is no user with this id.", HttpStatus.NOT_FOUND);
 
@@ -37,13 +34,13 @@ public class ExcursieController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Excursie create(@RequestBody Excursie excursie) {
-        excursieRepo.save(excursie);
+        excursieService.create(excursie);
         return excursie;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Excursie update(@RequestBody Excursie excursie) {
-        excursieRepo.update(excursie.getId(), excursie);
+        excursieService.update(excursie);
         return excursie;
     }
 
@@ -51,7 +48,9 @@ public class ExcursieController {
     public ResponseEntity<?> delete(@PathVariable String id) {
         System.out.println(id + " ________________");
         try {
-            excursieRepo.delete(UUID.fromString(id));
+            Excursie excursie = new Excursie();
+            excursie.setId(UUID.fromString(id));
+            excursieService.delete(excursie);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -59,11 +58,11 @@ public class ExcursieController {
     }
 
     @RequestMapping(value = "/filter",method = RequestMethod.GET)
-    public Iterable<Excursie> getByName(@RequestParam Optional<String> obiectiv, @RequestParam Optional<String> ora)
+    public Iterable<Excursie> getFilter(@RequestParam Optional<String> obiectiv, @RequestParam Optional<String> ora)
     {
         if(obiectiv.isEmpty() || ora.isEmpty())
-            return excursieRepo.findAll();
-        return excursieRepo.findFiltered(obiectiv.get(), ora.get());
+            return excursieService.getAll();
+        return excursieService.getFilter(obiectiv.get(), ora.get());
     }
 
     @ExceptionHandler(Exception.class)

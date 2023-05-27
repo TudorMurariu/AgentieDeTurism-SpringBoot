@@ -9,7 +9,7 @@ public class StartRestClient {
     private static final ExcursieClient excursieClient = new ExcursieClient();
     public static void main(String[] args) {
         Excursie e1 = new Excursie(UUID.fromString("0ff9f51e-b231-45cd-8783-2c39908483d9"), "Casa lui Ion Creanga", "HolidayFun", "10:00", 52.5f, 12);
-        Excursie e2 = new Excursie("Cetatea Neamtului", "HolidayFun", "14:00", 20f, 0);
+        Excursie e2 = new Excursie(UUID.randomUUID(), "Cetatea Neamtului", "HolidayFun", "14:00", 20f, 0);
 
         RestTemplate restTemplate = new RestTemplate();
 
