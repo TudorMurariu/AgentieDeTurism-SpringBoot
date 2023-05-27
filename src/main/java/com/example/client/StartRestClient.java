@@ -4,19 +4,31 @@ import com.example.model.Excursie;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class StartRestClient {
     private static final ExcursieClient excursieClient = new ExcursieClient();
     public static void main(String[] args) {
-        Excursie e1 = new Excursie(UUID.fromString("0ff9f51e-b231-45cd-8783-2c39908483d9"), "Casa lui Ion Creanga", "HolidayFun", "10:00", 52.5f, 12);
-        Excursie e2 = new Excursie(UUID.randomUUID(), "Cetatea Neamtului", "HolidayFun", "14:00", 20f, 0);
+        AtomicReference<Excursie> e1 = new AtomicReference<>(new Excursie(UUID.fromString("0ff9f51e-b231-45cd-8783-2c39908483d9"), "Casa lui Ion Creanga", "HolidayFun", "10:00", 52.5f, 12));
+        AtomicReference<Excursie> e2 = new AtomicReference<>(new Excursie(UUID.randomUUID(), "Cetatea Neamtului", "HolidayFun", "14:00", 20f, 0));
 
         RestTemplate restTemplate = new RestTemplate();
 
         try {
 
-            show(() -> System.out.println(excursieClient.create(e1)));
-            show(() -> System.out.println(excursieClient.create(e2)));
+            show(() -> {
+                e1.set(excursieClient.create(e1.get()));
+                System.out.println(e1.get());
+            });
+            show(() -> {
+                e2.set(excursieClient.create(e2.get()));
+                System.out.println(e2.get());
+            });
+
+            System.out.println("AAAAAAAAAAAAAAAAAAAAA");
+            System.out.println(e1.get());
+            System.out.println(e2.get());
+            System.out.println("AAAAAAAAAAAAAAAAAAAAA");
 
             show(() -> {
                 Excursie[] excursii = excursieClient.getAll();
@@ -26,16 +38,16 @@ public class StartRestClient {
             });
 
             show(() -> {
-                Excursie[] excursii = excursieClient.filter(e2.getObirctivTuristic(), e2.getOraPlecarii());
+                Excursie[] excursii = excursieClient.filter(e2.get().getObiectivTuristic(), e2.get().getOraPlecarii());
 
                 for(Excursie e : excursii)
                     System.out.println(e + "-----------------");
             });
 
-            show(() -> System.out.println(excursieClient.getById(e1.getId())));
+            show(() -> System.out.println(excursieClient.getById(e1.get().getId())));
 
-            e1.setPret(666);
-            show(() -> System.out.println(excursieClient.update(e1)));
+            e1.get().setPret(666);
+            show(() -> System.out.println(excursieClient.update(e1.get())));
 
             show(() -> {
                 Excursie[] excursii = excursieClient.getAll();
@@ -44,7 +56,7 @@ public class StartRestClient {
                     System.out.println(e + "-----------------");
             });
 
-            show(() -> System.out.println(excursieClient.delete(e1)));
+            show(() -> System.out.println(excursieClient.delete(e1.get())));
 
             show(() -> {
                 Excursie[] excursii = excursieClient.getAll();

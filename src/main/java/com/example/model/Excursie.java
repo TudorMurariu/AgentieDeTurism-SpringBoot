@@ -3,7 +3,6 @@ package com.example.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,7 @@ public class Excursie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private String obirctivTuristic;
+    private String obiectivTuristic;
     private String numeCompanieTurism;
     private String oraPlecarii;
     private float pret;
@@ -28,7 +27,7 @@ public class Excursie {
     public String toString() {
         return "Excursie{" +
                 "id='" + this.getId() + '\'' +
-                "obirctivTuristic='" + obirctivTuristic + '\'' +
+                "obirctivTuristic='" + obiectivTuristic + '\'' +
                 ", numeCompanieTurism='" + numeCompanieTurism + '\'' +
                 ", oraPlecarii=" + oraPlecarii +
                 ", pret=" + pret +

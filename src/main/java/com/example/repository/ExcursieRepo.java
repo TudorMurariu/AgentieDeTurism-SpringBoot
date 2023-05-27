@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ExcursieRepo extends JpaRepository<Excursie, UUID> {
-    List<Excursie> findByObirctivTuristicAndOraPlecarii(String obirctivTuristic, String oraPlecarii);
+    List<Excursie> findByObiectivTuristicAndOraPlecarii(String obiectivTuristic, String oraPlecarii);
 }

@@ -26,13 +26,13 @@ public class ExcursieServiceImp implements ExcursieService {
     }
 
     @Override
-    public void create(Excursie excursie) {
-        excursieRepo.save(excursie);
+    public Excursie create(Excursie excursie) {
+        return excursieRepo.save(excursie);
     }
 
     @Override
-    public void update(Excursie excursie) {
-        excursieRepo.save(excursie);
+    public Excursie update(Excursie excursie) {
+        return excursieRepo.save(excursie);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class ExcursieServiceImp implements ExcursieService {
 
     @Override
     public Iterable<Excursie> getFilter(String obiectiv, String ora) {
-        return excursieRepo.findByObirctivTuristicAndOraPlecarii(obiectiv, ora);
+        return excursieRepo.findByObiectivTuristicAndOraPlecarii(obiectiv, ora);
     }
 }

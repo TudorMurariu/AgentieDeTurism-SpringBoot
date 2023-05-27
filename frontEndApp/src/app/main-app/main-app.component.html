@@ -1,0 +1,43 @@
+<div class="container">
+    <h1>Excursii</h1>
+
+    <div class="add-excursie">
+        <h2>Add Excursie</h2>
+        <!-- Add Excursie form -->
+        <form id="formAdd" (ngSubmit)="addExcursie()">
+            <!-- Form fields for Excursie properties -->
+            <input type="text" placeholder="Obiectiv Turistic" [(ngModel)]="newExcursie.obiectivTuristic" name="obiectivTuristic" required>
+            <input type="text" placeholder="Nume Companie Turism" [(ngModel)]="newExcursie.numeCompanieTurism" name="numeCompanieTurism" required>
+            <input type="text" placeholder="Ora Plecarii" [(ngModel)]="newExcursie.oraPlecarii" name="oraPlecarii" required>
+            <input type="number" placeholder="Pret" [(ngModel)]="newExcursie.pret" name="pret" required>
+            <input type="number" placeholder="Numar Locuri Disponibile" [(ngModel)]="newExcursie.numarLocuriDisponibile" name="numarLocuriDisponibile" required>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="excursii-list">
+        <h2>All Excursii</h2>
+
+        <form>
+            <button id="update" (click)="filterExcursie()">Filter</button>
+            <input type="text" placeholder="Obiectiv Turistic" [(ngModel)]="obiectiv" name="obiectiv" required>
+            <input type="text" placeholder="Ora Plecarii" [(ngModel)]="ora" name="ora" required>
+        </form>
+
+        <!-- Excursii list -->
+        <ul>
+            <li *ngFor="let excursie of excursii">
+                <!-- Display Excursie information -->
+                <span>{{excursie.obiectivTuristic}}</span>
+                <span>{{excursie.numeCompanieTurism}}</span>
+                <span>{{excursie.oraPlecarii}}</span>
+                <span>{{excursie.pret}}</span>
+                <span>{{excursie.numarLocuriDisponibile}}</span>
+                <!-- Delete button -->
+                <button id="delete" (click)="deleteExcursie(excursie.id)">Delete</button>
+                <!-- Update button -->
+                <button id="update" (click)="updateExcursie(excursie.id)">Update</button>
+            </li>
+        </ul>
+    </div>
+</div>
